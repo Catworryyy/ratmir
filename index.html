@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snapcircle</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <!-- ============ AUTH SCREEN ============ -->
+      <div id="auth-screen">
+        <div class="auth-card">
+          <div class="logo">Snapcircle</div>
+          <div class="tagline">Делись моментами с друзьями</div>
+
+          <div id="auth-error" class="auth-error"></div>
+
+          <div id="login-form">
+            <input
+              class="field"
+              id="login-username"
+              placeholder="Логин"
+              autocomplete="username"
+            />
+            <input
+              class="field"
+              id="login-password"
+              type="password"
+              placeholder="Пароль"
+              autocomplete="current-password"
+            />
+            <button class="btn-primary" onclick="handleLogin()">Войти</button>
+            <div class="switch-line">
+              Нет аккаунта?
+              <button onclick="showRegister()">Зарегистрироваться</button>
+            </div>
+          </div>
+
+          <div id="register-form" class="hidden">
+            <input class="field" id="reg-name" placeholder="Имя" />
+            <input class="field" id="reg-username" placeholder="Логин" />
+            <input
+              class="field"
+              id="reg-password"
+              type="password"
+              placeholder="Пароль"
+            />
+            <button class="btn-primary" onclick="handleRegister()">
+              Зарегистрироваться
+            </button>
+            <div class="switch-line">
+              Уже есть аккаунт? <button onclick="showLogin()">Войти</button>
+            </div>
+          </div>
+
+          <div id="account-list" class="account-list hidden">
+            <div class="account-list-title">Быстрый вход</div>
+            <div id="account-list-items"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ MAIN APP ============ -->
+      <div id="main-screen" class="hidden">
+        <header class="topbar">
+          <div class="topbar-inner">
+            <div class="topbar-logo" onclick="navigate('feed')">Snapcircle</div>
+            <div class="search-wrap">
+              <input
+                class="search-input"
+                id="search-input"
+                placeholder="Поиск"
+                oninput="handleSearch()"
+                onfocus="handleSearch()"
+              />
+              <div id="search-results" class="search-results hidden"></div>
+            </div>
+            <div class="topbar-actions">
+              <button
+                class="icon-btn"
+                title="Сообщения"
+                onclick="navigate('messages')"
+              >
+                &#9993;
+                <span id="msg-badge" class="badge hidden">0</span>
+              </button>
+              <button
+                class="icon-btn"
+                title="Заявки в друзья"
+                onclick="navigate('requests')"
+              >
+                &#128276;
+                <span id="req-badge" class="badge hidden">0</span>
+              </button>
+              <button
+                class="icon-btn"
+                title="Мой профиль"
+                onclick="openMyProfile()"
+              >
+                <span id="topbar-avatar"></span>
+              </button>
+              <button
+                class="icon-btn"
+                title="Выйти"
+                onclick="logout()"
+                style="font-size: 14px; color: var(--danger); font-weight: 600"
+              >
+                Выйти
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <main id="main-content"></main>
+      </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore-compat.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
